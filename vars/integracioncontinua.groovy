@@ -1,7 +1,7 @@
 def call(stage){
 
 pipeline {
-    agent any
+    
     environment{
         NEXUS_USER = credentials('usernexus')
         NEXUS_PASSWORD = credentials('password-nexus')
