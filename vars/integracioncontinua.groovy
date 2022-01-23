@@ -67,7 +67,6 @@ pipeline {
                 }   
             }
         }
-        
         stage("1 Compile"){
             //- Compilar el código con comando maven
             steps {
