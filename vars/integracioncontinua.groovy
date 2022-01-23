@@ -9,7 +9,7 @@ pipeline {
         FINAL_VERSION = '1.0.0'
     }
 script {
-    node {
+    stages {
 	stage("-1 logs"){
 		steps {
 		sh "echo 'branchname: '" + BRANCH_NAME
