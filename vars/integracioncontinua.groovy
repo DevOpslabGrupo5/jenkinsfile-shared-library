@@ -14,20 +14,18 @@ pipeline {
 		steps {
                 sh "echo 'branchname: '" + BRANCH_NAME
                 sh 'printenv'
-		}
-            }
+			}
+				}
         }
         stage("01 Validate Not Master Executions"){
-            //validaciones iniciales
+		//validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
             // tambien validar que no ejecute en master
-
             when {
                 anyOf {
                           expression { BRANCH_NAME == 'master' }
                           expression { BRANCH_NAME == 'main' }
-                }
-              
+                }           
             }
             steps {
                 sh "echo  'Rama invalida'"
@@ -37,18 +35,15 @@ pipeline {
             }
         }
         stage("02 Validate Branch Name"){
-            //validaciones iniciales
+		//validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
-
-            //Validar el tipo de rama a ejecutar (feature, develop o release)
-            
+            //Validar el tipo de rama a ejecutar (feature, develop o release)           
             when {
                 allOf {
                     not { expression { BRANCH_NAME ==~ /feature.*/ } }
                     not { expression { BRANCH_NAME ==~ /develop.*/ } }
                     not { expression { BRANCH_NAME ==~ /release.*/ } }
-                }
-                
+                }                
             }
             steps {
                 sh "echo  'Nombre Rama Invalido'"
@@ -57,9 +52,8 @@ pipeline {
                 }   
             }
         }
-
         stage("03 Validate Maven Files"){
-            when {
+		when {
                 anyOf {
                           not { expression { fileExists ('pom.xml') }}
                           not { expression { fileExists ('mvnw') }}
