@@ -1,29 +1,21 @@
-def call(stage){
+def ci(stage){
 
 pipeline {
-    
-    environment{
-        NEXUS_USER = credentials('usernexus')
-        NEXUS_PASSWORD = credentials('password-nexus')
-        VERSION = '0.0.14'
-        FINAL_VERSION = '1.0.0'
-    }
-script {
     stages {
-	stage("-1 logs"){
-		steps {
-		sh "echo 'branchname: '" + BRANCH_NAME
-                sh 'printenv'
-		}
-	}
+        stage("-1 logs"){
+            steps {
+            sh "echo 'branchname: '" + BRANCH_NAME
+                    sh 'printenv'
+            }
+        }
         stage("01 Validate Not Master Executions"){
-		//validaciones iniciales
+        //validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
             // tambien validar que no ejecute en master
             when {
                 anyOf {
-                          expression { BRANCH_NAME == 'master' }
-                          expression { BRANCH_NAME == 'main' }
+                        expression { BRANCH_NAME == 'master' }
+                        expression { BRANCH_NAME == 'main' }
                 }           
             }
             steps {
@@ -34,7 +26,7 @@ script {
             }
         }
         stage("02 Validate Branch Name"){
-		//validaciones iniciales
+        //validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
             //Validar el tipo de rama a ejecutar (feature, develop o release)           
             when {
@@ -52,10 +44,10 @@ script {
             }
         }
         stage("03 Validate Maven Files"){
-		when {
+        when {
                 anyOf {
-                          not { expression { fileExists ('pom.xml') }}
-                          not { expression { fileExists ('mvnw') }}
+                        not { expression { fileExists ('pom.xml') }}
+                        not { expression { fileExists ('mvnw') }}
                 }
                 
             }
@@ -133,7 +125,5 @@ script {
                 }
             }
         }
-		}
-		}
-}
+    }
 }
