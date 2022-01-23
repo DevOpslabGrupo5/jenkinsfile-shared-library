@@ -8,9 +8,9 @@ pipeline {
         VERSION = '0.0.14'
         FINAL_VERSION = '1.0.0'
     }
+script {
     stages {
-	script {
-        stage("-1 logs"){
+	stage("-1 logs"){
 		
 		steps {
                 sh "echo 'branchname: '" + BRANCH_NAME
