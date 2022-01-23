@@ -9,7 +9,7 @@ pipeline {
         FINAL_VERSION = '1.0.0'
     }
     stages {
-        stage('-1 logs'){
+        stage("-1 logs"){
 		script {
 		steps {
                 sh "echo 'branchname: '" + BRANCH_NAME
@@ -17,7 +17,7 @@ pipeline {
 		}
             }
         }
-        stage('01 Validate Not Master Executions'){
+        stage("01 Validate Not Master Executions"){
             //validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
             // tambien validar que no ejecute en master
@@ -36,7 +36,7 @@ pipeline {
                 }   
             }
         }
-        stage('02 Validate Branch Name'){
+        stage("02 Validate Branch Name"){
             //validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
 
@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-        stage('03 Validate Maven Files'){
+        stage("03 Validate Maven Files"){
             when {
                 anyOf {
                           not { expression { fileExists ('pom.xml') }}
@@ -74,7 +74,7 @@ pipeline {
             }
         }
         
-        stage('1 Compile'){
+        stage("1 Compile"){
             //- Compilar el código con comando maven
             steps {
                 script {
@@ -84,7 +84,7 @@ pipeline {
                 }
             }
         }
-        stage('2 Unit Test'){
+        stage("2 Unit Test"){
         //- Testear el código con comando maven
             steps {
                 script {
@@ -94,7 +94,7 @@ pipeline {
                 }
             }
         }
-        stage('3 Build jar'){
+        stage("3 Build jar"){
         //- Generar artefacto del código compilado.
             steps {
                 script {
@@ -104,7 +104,7 @@ pipeline {
                 }
             }
         }
-        stage('4 SonarQube'){
+        stage("4 SonarQube"){
         //- Generar análisis con sonar para cada ejecución
         //- Cada ejecución debe tener el siguiente formato de nombre: QUE ES EL NOMBRE DE EJECUCIÓN ??
             //- {nombreRepo}-{rama}-{numeroEjecucion} ejemplo:
@@ -132,7 +132,7 @@ pipeline {
                 }
             }
         }
-        stage('6 gitCreateRelease'){
+        stage("6 gitCreateRelease"){
         //- Crear rama release cuando todos los stages anteriores estén correctamente ejecutados.
         //- Este stage sólo debe estar disponible para la rama develop.
             steps {
