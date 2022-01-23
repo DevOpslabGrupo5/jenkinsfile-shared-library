@@ -1,6 +1,5 @@
 def call(stage){
-	echo "Etapa ${stage} en ejecución"
-	
+
 pipeline {
     agent any
     environment{
