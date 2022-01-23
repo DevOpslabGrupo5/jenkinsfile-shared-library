@@ -10,13 +10,12 @@ pipeline {
     }
     stages {
         stage("-1 logs"){
-		script {
+		
 		steps {
                 sh "echo 'branchname: '" + BRANCH_NAME
                 sh 'printenv'
 			}
-				}
-        }
+			}
         stage("01 Validate Not Master Executions"){
 		//validaciones iniciales
             // expresion regular solicitada release-v\d+-\d+-\d+
