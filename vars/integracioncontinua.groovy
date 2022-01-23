@@ -8,6 +8,7 @@ pipeline {
         VERSION = '0.0.14'
         FINAL_VERSION = '1.0.0'
     }
+script {
     stages {
         stage("-1 logs"){
 		
@@ -136,4 +137,5 @@ pipeline {
         }
 		}
 		}
+}
 }
