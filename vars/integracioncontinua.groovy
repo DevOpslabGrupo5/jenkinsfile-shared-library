@@ -147,7 +147,7 @@ package cl.dipdevops.usach.grupo5
         }
     }
 
-    def citest1(){
+    def citest2(){
         stage("-1 logs"){
             steps {
                 sh "java -version"
