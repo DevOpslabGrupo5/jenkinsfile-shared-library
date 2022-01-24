@@ -1,7 +1,7 @@
 def call(Map pipelineParameters){
     if ((env.BRANCH_NAME =~ '.*feature.*').matches()) {
         echo "llegamos a featTUre"
-        ci()
+        ci
     }
 }
 def ci(){
