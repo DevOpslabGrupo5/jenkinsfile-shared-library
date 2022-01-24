@@ -135,9 +135,12 @@ package cl.dipdevops.usach.grupo5
     }
 
     def citest1(){
-
-        echo "sheeeeeggeee"
-
+        node {
+            stage("testito") {
+                sh "sheeeeeggeee"
+            }
+        }
+       
         // pipeline {
         //     stages {
         //         stage("-1 logs"){
