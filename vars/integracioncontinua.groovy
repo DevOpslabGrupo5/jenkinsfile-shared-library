@@ -1,8 +1,8 @@
-// def call(Map pipelineParameters){
-//     if ((env.BRANCH_NAME =~ '.*feature.*').matches()) {
-//         ci pipelineParameters
-//     }
-// }
+def call(Map pipelineParameters){
+    if ((env.BRANCH_NAME =~ '.*feature.*').matches()) {
+        sh "llegamos a featTUre"
+    }
+}
 def call(Map pipelineParameters){
         
     pipeline {
