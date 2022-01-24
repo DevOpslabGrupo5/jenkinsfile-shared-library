@@ -135,24 +135,15 @@ package cl.dipdevops.usach.grupo5
     }
 
     def citest1(){
-        node {
-            stage("testito") {
-                sh "sheeeeeggeee"
+        pipeline {
+            agent any
+            stages {
+                stage("-1 logs"){
+                    steps {
+                        sh "java -version"
+                    }
+                }
             }
         }
-       
-        // pipeline {
-        //     stages {
-        //         stage("-1 logs"){
-        //             steps {
-        //                 script {
-        //                     sh 'printenv'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
     }
-
-
 }
