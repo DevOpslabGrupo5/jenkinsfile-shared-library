@@ -148,6 +148,6 @@ def citest2(){
       sh "java -version"
     }
     stage("-2 logs"){
-      sh "mvn -version"
+      sh "printenv"
     }
 }
