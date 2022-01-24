@@ -9,56 +9,6 @@ def ci(){
                     sh 'printenv'
                 }
             }
-            stage("01 Validate Not Master Executions"){
-            //validaciones iniciales
-                // expresion regular solicitada release-v\d+-\d+-\d+
-                // tambien validar que no ejecute en master
-                when {
-                    anyOf {
-                            expression { BRANCH_NAME == 'master' }
-                            expression { BRANCH_NAME == 'main' }
-                    }           
-                }
-                steps {
-                    sh "echo  'Rama invalida'"
-                    script{
-                        error("Invalid Branch Name" + BRANCH_NAME )
-                    }   
-                }
-            }
-            stage("02 Validate Branch Name"){
-            //validaciones iniciales
-                // expresion regular solicitada release-v\d+-\d+-\d+
-                //Validar el tipo de rama a ejecutar (feature, develop o release)           
-                when {
-                    allOf {
-                        not { expression { BRANCH_NAME ==~ /feature.*/ } }
-                        not { expression { BRANCH_NAME ==~ /develop.*/ } }
-                        not { expression { BRANCH_NAME ==~ /release.*/ } }
-                    }                
-                }
-                steps {
-                    sh "echo  'Nombre Rama Invalido'"
-                    script{
-                        error("Invalid Branch Name" + BRANCH_NAME)
-                    }   
-                }
-            }
-            stage("03 Validate Maven Files"){
-                when {
-                        anyOf {
-                                not { expression { fileExists ('pom.xml') }}
-                                not { expression { fileExists ('mvnw') }}
-                        }
-                        
-                    }
-                    steps {
-                        sh "echo  'Faltan archivos Maven en su estructura'"
-                        script{
-                            error("file dont exist :( ")
-                        }   
-                    }
-            }
             stage("1 Compile"){
                 //- Compilar el código con comando maven
                 steps {
@@ -130,24 +80,16 @@ def ci(){
     }
 }
 
-def citest1(){
-    pipeline {
-        agent any
-        stages {
-            stage("-1 logs"){
-                steps {
-                    sh "java -version"
-                }
-            }
-        }
-    }
-}
-
 def citest2(){
     stage("-1 logs"){
-      sh "java -version"
+        steps {
+            sh "java -version"
+        }
+      
     }
     stage("-2 logs"){
-      sh "printenv"
+        steps {
+            sh "printenv"
+        }
     }
 }
