@@ -1,11 +1,4 @@
-def call(Map pipelineParameters){
-    if ((env.BRANCH_NAME =~ '.*feature.*').matches()) {
-        echo "llegamos a featTUre"
-        ci 'pipelineParameters'
-        echo "terminamos aca"
-    }
-}
-def ci(String texto){
+def call(){
         
     pipeline {
         agent any
