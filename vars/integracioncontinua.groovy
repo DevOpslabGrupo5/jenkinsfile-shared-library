@@ -1,4 +1,4 @@
-def ci(stage){
+def ci(){
     pipeline {
         stages {
             stage("-1 logs"){
@@ -128,6 +128,15 @@ def ci(stage){
     }
 }
 
-def test(){
-    sh 'shegue!!!'
+def citest(){
+    pipeline {
+        stages {
+            stage("-1 logs"){
+                steps {
+                    sh "echo 'branchname: '" + BRANCH_NAME
+                    sh 'printenv'
+                }
+            }
+        }
+    }
 }
