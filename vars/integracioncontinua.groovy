@@ -12,7 +12,7 @@ def ci(){
             //validaciones iniciales
                 // expresion regular solicitada release-v\d+-\d+-\d+
                 // tambien validar que no ejecute en master
-                when {
+                if {
                     anyOf {
                             expression { BRANCH_NAME == 'master' }
                             expression { BRANCH_NAME == 'main' }
@@ -29,7 +29,7 @@ def ci(){
             //validaciones iniciales
                 // expresion regular solicitada release-v\d+-\d+-\d+
                 //Validar el tipo de rama a ejecutar (feature, develop o release)           
-                when {
+                if {
                     allOf {
                         not { expression { BRANCH_NAME ==~ /feature.*/ } }
                         not { expression { BRANCH_NAME ==~ /develop.*/ } }
@@ -44,7 +44,7 @@ def ci(){
                 }
             }
             stage("03 Validate Maven Files"){
-                when {
+                if {
                         anyOf {
                                 not { expression { fileExists ('pom.xml') }}
                                 not { expression { fileExists ('mvnw') }}
