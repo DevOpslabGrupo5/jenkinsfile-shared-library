@@ -1,4 +1,4 @@
-def call(Map pipelineParameters){
+def ci(Map pipelineParameters){
         
     pipeline {
         agent any
