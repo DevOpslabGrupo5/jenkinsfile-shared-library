@@ -133,8 +133,9 @@ def citest(){
         stages {
             stage("-1 logs"){
                 steps {
-                    sh "echo 'branchname: '" + BRANCH_NAME
-                    sh 'printenv'
+                    script {
+                        sh 'printenv'
+                    }
                 }
             }
         }
