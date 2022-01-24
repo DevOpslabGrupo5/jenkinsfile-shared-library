@@ -1,4 +1,5 @@
 def ci(){
+
     pipeline {
         stages {
             stage("-1 logs"){
@@ -128,7 +129,8 @@ def ci(){
     }
 }
 
-def citest(){
+def citest1(){
+
     pipeline {
         stages {
             stage("-1 logs"){
