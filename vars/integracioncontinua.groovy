@@ -11,7 +11,7 @@ def call(Map pipelineParameters){
         stages{
             stage("-1 logs"){
                 steps {
-                    sh "echo 'branchname: '" + BRANCH_NAME
+                    sh "echo 'branchname: '" + env.BRANCH_NAME
                     sh 'printenv'
                 }
             }
@@ -21,14 +21,14 @@ def call(Map pipelineParameters){
                 // tambien validar que no ejecute en master
                 when {
                     anyOf {
-                            expression { BRANCH_NAME == 'master' }
-                            expression { BRANCH_NAME == 'main' }
+                            expression { env.BRANCH_NAME == 'master' }
+                            expression { env.BRANCH_NAME == 'main' }
                     }           
                 }
                 steps {
                     sh "echo  'Rama invalida'"
                     script{
-                        error("Invalid Branch Name" + BRANCH_NAME )
+                        error("Invalid Branch Name" + env.BRANCH_NAME )
                     }   
                 }
             }
@@ -38,9 +38,9 @@ def call(Map pipelineParameters){
                 //Validar el tipo de rama a ejecutar (feature, develop o release)           
                 when {
                     allOf {
-                        not { expression { BRANCH_NAME ==~ /feature.*/ } }
-                        not { expression { BRANCH_NAME ==~ /develop.*/ } }
-                        not { expression { BRANCH_NAME ==~ /release.*/ } }
+                        not { expression { env.BRANCH_NAME ==~ /feature.*/ } }
+                        not { expression { env.BRANCH_NAME ==~ /develop.*/ } }
+                        not { expression { env.BRANCH_NAME ==~ /release.*/ } }
                     }                
                 }
                 steps {
