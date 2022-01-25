@@ -46,7 +46,7 @@ def call(Map pipelineParameters){
                 steps {
                     sh "echo  'Nombre Rama Invalido'"
                     script{
-                        error("Invalid Branch Name" + BRANCH_NAME)
+                        error("Invalid Branch Name" +  env.BRANCH_NAME)
                     }   
                 }
             }
