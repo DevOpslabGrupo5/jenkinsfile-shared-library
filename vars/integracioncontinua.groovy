@@ -86,12 +86,9 @@ def call(Map pipelineParameters){
             //- Crear rama release cuando todos los stages anteriores estén correctamente ejecutados.
             //- Este stage sólo debe estar disponible para la rama develop.
                 steps {
-                    when 
                     sh "echo 'gitCreateRelease'"
                     sh "git branch"
                     sh "git branch -b release/${BUILD_ID}"
-                  
-               
                 }
             }
         }
