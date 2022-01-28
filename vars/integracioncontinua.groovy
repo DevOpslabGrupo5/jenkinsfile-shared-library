@@ -87,7 +87,7 @@ def call(Map pipelineParameters){
             //- Este stage sólo debe estar disponible para la rama develop.
                 steps {
                     sh "echo 'gitCreateRelease'"
-                    sh SUBSTRING=$(echo ${GIT_BRANCH}| cut -d'/' -f 2)
+                    sh "SUBSTRING=$(echo ${GIT_BRANCH}| cut -d'/' -f 2)"
                     sh "echo release/"$SUBSTRING
                
                 }
