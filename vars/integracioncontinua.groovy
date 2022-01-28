@@ -94,8 +94,8 @@ def call(Map pipelineParameters){
                 //- {nombreRepo}-{rama}-{numeroEjecucion} ejemplo:
                 //- ms-iclab-feature-estadomundial(Si está usando el CRUD ms-iclab-feature-[nombre de su crud])
                 steps {
-                    withSonarQubeEnv('SonarQubeServer') {
-                        sh "echo 'SonarQube'"
+                    withSonarQubeEnv('sonarqube') {
+                        sh "echo 'Calling sonar Service in another docker container!'"
                         sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=githubfull'
                     }
                 }
