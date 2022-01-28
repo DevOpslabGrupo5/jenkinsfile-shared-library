@@ -35,7 +35,7 @@ def call(Map pipelineParameters){
                 steps {
                     sh "echo 'Compile Code!'"
                     // Run Maven on a Unix agent.
-                    sh "mvn clean compile -e"
+                    //sh "mvn clean compile -e"
                 }
             }
             stage("2 Unit Test"){
@@ -43,7 +43,7 @@ def call(Map pipelineParameters){
                 steps {
                     sh "echo 'Test Code!'"
                     // Run Maven on a Unix agent.
-                    sh "mvn clean test -e"
+                    //sh "mvn clean test -e"
                 }
             }
             stage("3 Build jar"){
