@@ -87,9 +87,9 @@ def call(Map pipelineParameters){
             //- Este stage sólo debe estar disponible para la rama develop.
                 steps {
                     sh "echo 'gitCreateRelease'"
-                    sh "echo ${GIT_BRANCH}.substring(1, url.indexOf('1'))"
-                    sh "echo release/(${GIT_BRANCH}.substring(1, url.indexOf('1')))"
-                    sh "echo release/${GIT_BRANCH}.substring(1, url.indexOf('1'))"
+                    sh SUBSTRING=$(echo ${GIT_BRANCH}| cut -d'/' -f 2)
+                    sh "echo release/"$SUBSTRING
+               
                 }
             }
         }
@@ -98,7 +98,7 @@ def call(Map pipelineParameters){
                 slackSend color: 'good', message: "[mcontreras] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion Exitosa", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slacksecret'
             }
             failure{
-                slackSend color: 'danger', message: "[Su Nombre] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion fallida en stage [${BUILD_ID}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slacksecret'
+                slackSend color: 'danger', message: "[mcontreras] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion fallida en stage [${BUILD_ID}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slacksecret'
             }
         }
     }
