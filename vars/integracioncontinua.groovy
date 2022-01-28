@@ -65,29 +65,40 @@ def call(Map pipelineParameters){
                         sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=githubfull'
                     }
                 }
-                post {
-                    //- Subir el artefacto creado al repositorio privado de Nexus.
-                    //- Ejecutar este paso solo si los pasos anteriores se ejecutan de manera correcta.
-                    success {
-                        nexusPublisher nexusInstanceId: 'nexus', 
-                        nexusRepositoryId: 'devops-usach-nexus', 
-                        packages: [[$class: 'MavenPackage', 
-                            mavenAssetList: [[classifier: '', 
-                                            extension: '',
-                                            filePath: 'build/DevOpsUsach2020-0.0.1.jar']],
-                            mavenCoordinate: [artifactId: 'DevOpsUsach2020', 
-                                            groupId: 'com.devopsusach2020', 
-                                            packaging: 'jar', 
-                                            version: VERSION]]]
-                    }
-                }
+                // post {
+                //     //- Subir el artefacto creado al repositorio privado de Nexus.
+                //     //- Ejecutar este paso solo si los pasos anteriores se ejecutan de manera correcta.
+                //     success {
+                //         nexusPublisher nexusInstanceId: 'nexus', 
+                //         nexusRepositoryId: 'devops-usach-nexus', 
+                //         packages: [[$class: 'MavenPackage', 
+                //             mavenAssetList: [[classifier: '', 
+                //                             extension: '',
+                //                             filePath: 'build/DevOpsUsach2020-0.0.1.jar']],
+                //             mavenCoordinate: [artifactId: 'DevOpsUsach2020', 
+                //                             groupId: 'com.devopsusach2020', 
+                //                             packaging: 'jar', 
+                //                             version: VERSION]]]
+                //     }
+                // }
             }
             stage("6 gitCreateRelease"){
             //- Crear rama release cuando todos los stages anteriores estén correctamente ejecutados.
             //- Este stage sólo debe estar disponible para la rama develop.
                 steps {
                     sh "echo 'gitCreateRelease'"
+                    sh "echo ${GIT_BRANCH}.substring(1, url.indexOf('1'))"
+                    sh "echo release/(${GIT_BRANCH}.substring(1, url.indexOf('1')))"
+                    sh "echo release/${GIT_BRANCH}.substring(1, url.indexOf('1'))"
                 }
+            }
+        }
+        post{
+            success{
+                slackSend color: 'good', message: "[mcontreras] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion Exitosa", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slacksecret'
+            }
+            failure{
+                slackSend color: 'danger', message: "[Su Nombre] [${JOB_NAME}] [${BUILD_TAG}] Ejecucion fallida en stage [${BUILD_ID}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slacksecret'
             }
         }
     }
