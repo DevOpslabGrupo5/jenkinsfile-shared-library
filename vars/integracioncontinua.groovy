@@ -88,7 +88,7 @@ def call(Map pipelineParameters){
                 steps {
                     sh "echo 'gitCreateRelease'"
                     sh "git branch"
-                    sh "git branch -b release/${BUILD_ID}"
+                    sh "git checkout -b release/${BUILD_ID}"
                 }
             }
         }
