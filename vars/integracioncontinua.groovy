@@ -92,6 +92,8 @@ def call(Map pipelineParameters){
                     //sh "git merge ${GIT_BRANCH}"
                     sh "git add ."
                     sh "git commit -m 'Git commit hash en desarrollo ${GIT_COMMIT}'"
+                    sh "git config --global user.email 'intohybrid@gmail.com'"
+                    sh "git config --global user.name  'Marcelo Contreras'"
                     sh "git push origin release/${BUILD_ID}"
 
                 }
