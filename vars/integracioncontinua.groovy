@@ -15,42 +15,8 @@ def call(Map pipelineParameters){
                     sh 'printenv'
                 }
             }
-            stage("01 Validate Not Master Executions"){
-            //validaciones iniciales
-                // expresion regular solicitada release-v\d+-\d+-\d+
-                // tambien validar que no ejecute en master
-                when {
-                    anyOf {
-                            expression { BRANCH_NAME == 'master' }
-                            expression { BRANCH_NAME == 'main' }
-                    }           
-                }
-                steps {
-                    sh "echo  'Rama invalida'"
-                    script{
-                        error("Invalid Branch Name" + BRANCH_NAME )
-                    }   
-                }
-            }
-            stage("02 Validate Branch Name"){
-            //validaciones iniciales
-                // expresion regular solicitada release-v\d+-\d+-\d+
-                //Validar el tipo de rama a ejecutar (feature, develop o release)           
-                when {
-                    allOf {
-                        not { expression { BRANCH_NAME ==~ /feature.*/ } }
-                        not { expression { BRANCH_NAME ==~ /develop.*/ } }
-                        not { expression { BRANCH_NAME ==~ /release.*/ } }
-                    }                
-                }
-                steps {
-                    sh "echo  'Nombre Rama Invalido'"
-                    script{
-                        error("Invalid Branch Name" + BRANCH_NAME)
-                    }   
-                }
-            }
-            stage("03 Validate Maven Files"){
+
+            stage("0 Validate Maven Files"){
                 when {
                         anyOf {
                                 not { expression { fileExists ('pom.xml') }}
