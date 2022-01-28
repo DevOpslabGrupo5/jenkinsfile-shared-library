@@ -89,7 +89,7 @@ def call(Map pipelineParameters){
                     sh "echo 'gitCreateRelease'"
                     sh "git branch"
                     sh "git checkout -b release/${BUILD_ID}"
-                    sh "git merge ${GIT_BRANCH}"
+                    //sh "git merge ${GIT_BRANCH}"
                     sh "git add ."
                     sh "git commit -m 'Git commit hash en desarrollo ${GIT_COMMIT}'"
                     sh "git push origin release/${BUILD_ID}"
